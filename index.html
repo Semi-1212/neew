@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+    <title>Tour Agency</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+   
+</head>
+<body>
+
+  <!-- Top Bar (Black Section) -->
+
+  <div class="top-bar">
+    <div class="container">
+        <div class="contact-info1">
+            <span>📞 +251 913271706</span>
+            <span>✉ info@touragency.com</span>
+        </div>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+    </div>
+</div>
+
+<nav class="navbar">
+    <div class="container">
+        <a class="navbar-brand" href="#">Tour Agency</a>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <div class="nav-links">
+            <a class="nav-link" href="#home">Home</a>
+            <a class="nav-link" href="#about-us">About</a>
+            <a class="nav-link" href="#tours">Tours</a>
+            <a class="nav-link" href="#gallery">Gallery</a>
+            <a class="nav-link" href="#contact">Contact</a>
+        </div>
+    </div>
+</nav>
+
+
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="overlay"></div> <!-- Dark overlay for readability -->
+    
+    <div class="container text-center">
+        <h1>Discover Ethiopia with Us</h1>
+        <p>Your adventure starts here. Explore amazing destinations!</p>
+        <a href="#tours" class="btn btn-light btn-lg">View Tours</a>
+    </div>
+
+    <!-- Navigation Arrows -->
+    <button class="slider-nav prev" onclick="changeSlide(-1)">&#10094;</button>
+    <button class="slider-nav next" onclick="changeSlide(1)">&#10095;</button>
+
+    <!-- Dots Navigation -->
+    <div class="slider-dots">
+        <span class="dot" onclick="setSlide(0)"></span>
+        <span class="dot" onclick="setSlide(1)"></span>
+        <span class="dot" onclick="setSlide(2)"></span>
+    </div>
+</section>
+
+<section id="about-us">
+    <div class="about-container">
+        <!-- Left Side: Tour Agency Description -->
+        <div class="about-content">
+            <h2 class="about-title">About Us</h2>
+            <p class="about-text">
+                Welcome to <strong style="color: #005792;">Universal Tours</strong>, your gateway to unforgettable adventures. 
+                We specialize in crafting unique travel experiences that blend adventure, culture, and relaxation.
+            </p>
+            <p class="about-text">
+                Our mission is to provide seamless, enjoyable, and safe travel experiences. Whether you're an adventure seeker or a culture enthusiast, we tailor each journey to your needs.
+            </p>
+            <p class="about-text">
+                Travel is about making memories. Join us and discover the world like never before!
+            </p>
+            <a href="#tours" class="about-btn">Explore Our Tours</a>
+        </div>
+
+        <!-- Right Side: Owner Profile -->
+        <div class="about-owner">
+            <div class="owner-card">
+                <img src="images/alif.jpg" alt="Founder of Universal Tours" class="owner-image">
+                <h3 class="owner-name">Alif Abdurahman</h3>
+                <p class="owner-title">Founder & CEO</p>
+                <p class="owner-text">
+                    With a passion for travel and years of experience, John Doe founded Universal Tours to help people explore the world effortlessly. 
+                    His deep knowledge ensures that every journey is seamless and unforgettable.
+                </p>
+                <div class="social-icons">
+                    <a href="#" class="icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="icon"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Interactive Map Section -->
+<section id="map-section" class="py-5">
+    <div class="container text-center">
+        <h2 class="title">Explore Addis Ababa</h2>
+        <p class="subtitle">Click on the markers to explore top attractions.</p>
+        <div class="map-container">
+            <div id="map"></div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Google Maps API & Script -->
+<script>
+    function initMap() {
+        var addisAbaba = { lat: 9.03, lng: 38.74 };
+    var map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 13,
+        center: addisAbaba,
+        minZoom: 12, // Prevents zooming too far out
+        maxZoom: 18, // Allows zooming in but not too much
+        gestureHandling: "none", // Disables scroll zoom
+        zoomControl: true, // Enables zoom control buttons
+        restriction: { // Restrict the map to Addis Ababa
+            latLngBounds: {
+                north: 9.12,
+                south: 8.95,
+                east: 38.85,
+                west: 38.65
+            },
+            strictBounds: true
+        },
+        styles: [
+            { elementType: "geometry", stylers: [{ color: "#e9e5dc" }] },
+            { elementType: "labels.text.fill", stylers: [{ color: "#3e2723" }] },
+            { elementType: "labels.text.stroke", stylers: [{ color: "#fafafa" }] },
+            { featureType: "poi.park", elementType: "geometry", stylers: [{ color: "#c5e1a5" }] }
+        ]
+    });
+
+        // Locations with Custom Icons
+        var locations = [
+            { 
+                name: "National Museum of Ethiopia", lat: 9.038, lng: 38.761, 
+                info: "Home of 'Lucy', one of the oldest human fossils.",
+                image: "images/national-museum.jpg",
+                icon: "icons/museum.png"
+            },
+            { 
+                name: "Merkato Market", lat: 9.043, lng: 38.698, 
+                info: "Africa's largest open-air market with vibrant local trade.",
+                image: "images/merkato.jpg",
+                icon: "icons/market.png"
+            },
+            { 
+                name: "Holy Trinity Cathedral", lat: 9.035, lng: 38.759, 
+                info: "A stunning historical church with unique architecture.",
+                image: "images/holy-trinity.jpg",
+                icon: "icons/church.png"
+            },
+            { 
+                name: "Entoto Park", lat: 9.102, lng: 38.729, 
+                info: "A scenic park with breathtaking views and hiking trails.",
+                image: "images/entoto.jpg",
+                icon: "icons/park.png"
+            },
+            { 
+                name: "Red Terror Martyrs' Memorial Museum", lat: 9.016, lng: 38.750, 
+                info: "A museum commemorating victims of the Derg regime.",
+                image: "images/redterror.jpg",
+                icon: "icons/museum.png"
+            },
+            { 
+                name: "Unity Park", lat: 9.015, lng: 38.758, 
+                info: "A historical and recreational park with cultural exhibits.",
+                image: "images/unity-park.jpg",
+                icon: "icons/park.png"
+            },
+            { 
+                name: "Meskel Square", lat: 9.018, lng: 38.751, 
+                info: "A large public square, famous for Meskel celebrations.",
+                image: "images/meskel-square.jpg",
+                icon: "icons/landmark.png"
+            },
+            { 
+                name: "Zoma Museum", lat: 9.002, lng: 38.738, 
+                info: "An eco-friendly art museum showcasing Ethiopian culture.",
+                image: "images/zoma-museum.jpg",
+                icon: "icons/museum.png"
+            },
+            { 
+                name: "Addis Ababa Museum", lat: 9.029, lng: 38.759, 
+                info: "A museum showcasing Addis Ababa's rich history and culture.",
+                image: "images/addis-ababa-museum.jpg",
+                icon: "icons/museum.png"
+            }
+        ];
+
+        // Adding Custom Markers with Animation
+        locations.forEach(function (place) {
+        var marker = new google.maps.Marker({
+            position: { lat: place.lat, lng: place.lng },
+            map: map,
+            title: place.name,
+            icon: {
+                url: place.icon,
+                scaledSize: new google.maps.Size(40, 40)
+            },
+            animation: google.maps.Animation.DROP
+        });
+
+        var infoWindow = new google.maps.InfoWindow({
+            content: `
+                <div class="info-window">
+                    <img src="${place.image}" alt="${place.name}" class="info-img">
+                    <h5>${place.name}</h5>
+                    <p>${place.info}</p>
+                </div>
+            `
+        });
+
+        marker.addListener("click", function () {
+            infoWindow.open(map, marker);
+            map.panTo(marker.getPosition());
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+            setTimeout(() => marker.setAnimation(null), 1500);
+            });
+        });
+    }
+</script>
+<!-- Load Google Maps API -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCYOqdy7-yvM-yvpborjiUdeKh3GakDywA&callback=initMap"></script>
+
+
+<!-- Tours Section -->
+<section id="tours" class="container my-5">
+    <h2 class="text-center section-title">Explore Addis Ababa</h2>
+    <p class="text-center section-subtitle">Discover the rich history, culture, and beauty of Ethiopia's capital.</p>
+
+    <div class="row">
+        <!-- Tour 1: National Museum -->
+        <div class="col-md-4">
+            <div class="tour-card">
+                <img src="images/addis-ababa-museum.jpg" class="tour-img" alt="National Museum">
+                <div class="tour-content">
+                    <h5 class="tour-title">National Museum</h5>
+                    <p class="tour-text">Home to the famous <strong>Lucy fossil</strong>, this museum showcases Ethiopia’s ancient and modern artifacts, telling the rich story of its history.</p>
+                    <a href="#" class="tour-btn">Book Now</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tour 2: Entoto Park -->
+        <div class="col-md-4">
+            <div class="tour-card">
+                <img src="images/entoto.jpg" class="tour-img" alt="Entoto Park">
+                <div class="tour-content">
+                    <h5 class="tour-title">Entoto Park</h5>
+                    <p class="tour-text">Located on the city's highest peak, this park offers breathtaking <strong>views, hiking trails, and cultural exhibits</strong>.</p>
+                    <a href="#" class="tour-btn">Book Now</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tour 3: Merkato Market -->
+        <div class="col-md-4">
+            <div class="tour-card">
+                <img src="images/merkato.jpg" class="tour-img" alt="Merkato Market">
+                <div class="tour-content">
+                    <h5 class="tour-title">Merkato Market</h5>
+                    <p class="tour-text">Experience the vibrant and colorful atmosphere of <strong>Africa’s largest open-air market</strong>, where you can shop for local goods and souvenirs.</p>
+                    <a href="#" class="tour-btn">Book Now</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tour 4: Holy Trinity Cathedral -->
+        <div class="col-md-4">
+            <div class="tour-card">
+                <img src="images/holy-trinity.jpg" class="tour-img" alt="Holy Trinity Cathedral">
+                <div class="tour-content">
+                    <h5 class="tour-title">Holy Trinity Cathedral</h5>
+                    <p class="tour-text">This <strong>majestic church</strong> features stunning stained-glass windows and is the final resting place of Emperor Haile Selassie.</p>
+                    <a href="#" class="tour-btn">Book Now</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tour 5: Red Terror Museum -->
+        <div class="col-md-4">
+            <div class="tour-card">
+                <img src="images/redterror.jpg" class="tour-img" alt="Red Terror Martyrs' Museum">
+                <div class="tour-content">
+                    <h5 class="tour-title">Red Terror Museum</h5>
+                    <p class="tour-text">A museum dedicated to the victims of Ethiopia’s <strong>Red Terror period</strong>, showcasing historical artifacts and personal stories.</p>
+                    <a href="#" class="tour-btn">Book Now</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tour 6: Unity Park -->
+        <div class="col-md-4">
+            <div class="tour-card">
+                <img src="images/unity-park.jpg" class="tour-img" alt="Unity Park">
+                <div class="tour-content">
+                    <h5 class="tour-title">Unity Park</h5>
+                    <p class="tour-text">Located at the Grand Palace, Unity Park highlights <strong>Ethiopia’s cultural diversity</strong> with exhibits, gardens, and historical sites.</p>
+                    <a href="#" class="tour-btn">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="container my-5">
+        <h2 class="text-center">Gallery</h2>
+        <div class="row">
+            <div class="col-md-3"><img src="images/image1.jpg" class="img-fluid rounded" alt="Gallery 1"></div>
+            <div class="col-md-3"><img src="images/image2.jpg" class="img-fluid rounded" alt="Gallery 2"></div>
+            <div class="col-md-3"><img src="images/image4.png" class="img-fluid rounded" alt="Gallery 3"></div>
+            <div class="col-md-3"><img src="images/cbe.avif" class="img-fluid rounded" alt="Gallery 4"></div>
+        </div>
+    </section>
+
+   <!-- Contact Section -->
+<section id="contact" class="container my-5">
+    <div class="contact-container">
+        <!-- Left Side: Contact Form -->
+        <div class="contact-form">
+            <h2>Send Us A Message</h2>
+
+            <label for="name">Name</label>
+            <input type="text" id="name" placeholder="Enter your name">
+
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Enter your email">
+
+            <label for="message">Message</label>
+            <textarea id="message" placeholder="Enter your message"></textarea>
+
+            <button type="submit">Send</button>
+        </div>
+
+        <!-- Right Side: Contact Information -->
+        <div class="contact-info">
+            <h2>Get In Touch</h2>
+
+            <p><strong>Address</strong> addisAbaba, Ethiopia</p>
+
+            <p><strong>Email</strong><br> alifabdurahman@gmail.com</p>
+
+            <p><strong>Phone</strong> +251 913271706</p>
+            <p><strong>WhatsApp</strong> +25191111111</p>
+
+            <p><strong>Follow Us</strong></p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/yourpage" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://twitter.com/yourhandle" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="https://www.instagram.com/youraccount" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://t.me/yourchannel" target="_blank"><i class="fa-brands fa-telegram"></i></a>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</section>
+
+ <!-- Footer -->
+ <footer class="text-dark py-4" style="background-color:#474240;">
+    <div class="container">
+        <div class="row">
+            <!-- Company Info -->
+            <div class="col-md-4">
+                <h5 class="text-uppercase fw-bold">Tour Agency</h5>
+                <p>Your trusted travel partner for discovering Addis Ababa and beyond.</p>
+                <img src="images/logo.png" alt="Company Logo" class="footer-logo">
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-md-4">
+                <h5 class="text-uppercase fw-bold">Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#home" class="text-dark">Home</a></li>
+                    <li><a href="#about-us" class="text-dark">About Us</a></li>
+                    <li><a href="destinations.html" class="text-dark">Destinations</a></li>
+                    <li><a href="contact.html" class="text-dark">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="col-md-4">
+                <h5 class="text-uppercase fw-bold">Contact Us</h5>
+                <p>Email: <a href="mailto:info@touragency.com" class="text-dark">info@touragency.com</a></p>
+                <p>Phone: <a href="tel:+251912345678" class="text-dark">+251 912 345 678</a></p>
+                <p>Address: Addis Ababa, Ethiopia</p>
+            </div>
+        </div>
+
+        <!-- Social Media Icons -->
+        <div class="text-center mt-3">
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="text-dark me-3">
+                <i class="fa-brands fa-facebook fa-2x"></i>
+            </a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="text-dark me-3">
+                <i class="fa-brands fa-twitter fa-2x"></i>
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="text-dark me-3">
+                <i class="fa-brands fa-instagram fa-2x"></i>
+            </a>
+            <a href="https://t.me/YourUsername" target="_blank" rel="noopener noreferrer" class="text-dark">
+                <i class="fa-brands fa-telegram fa-2x"></i>
+            </a>
+        </div>
+
+        <!-- Copyright -->
+        <div class="text-center mt-4">
+            <p class="mb-0">&copy; 2025 Tour Agency. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>
+
+
+<!-- FontAwesome for Social Media Icons -->
+<script src="https://kit.fontawesome.com/YOUR_FA_CODE.js" crossorigin="anonymous"></script>
+
+<script src="script.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
